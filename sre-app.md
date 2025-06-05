@@ -115,14 +115,6 @@ cd sidecar
 ```
 
 **Create a Python File:** `sidecar/sidecar.py`
-
-### Purpose of the Script:
-
-- Poll `/health` on `app:4567` every 10 seconds
-- Track metrics: `requestLatency`, `dbLatency`, `cacheLatency`
-- Print average, min, max every 60 seconds
-- Exit non-zero if `/health` returns non-200
-
 ```python
 import requests
 import time
@@ -179,6 +171,12 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+### Purpose of the Script:
+
+- Poll `/health` on `app:4567` every 10 seconds
+- Track metrics: `requestLatency`, `dbLatency`, `cacheLatency`
+- Print average, min, max every 60 seconds
+- Exit non-zero if `/health` returns non-200
 
 ### Step 2: Dockerfile for Sidecar
 
@@ -275,3 +273,9 @@ sidecar-1  | ----------------------------------------
 sidecar-1  | [2025-06-04 23:37:44.579931] Exception: HTTPConnectionPool(host='app', port=4567): Max retries exceeded with url: /health (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f652ff4fa10>: Failed to resolve 'app' ([Errno -5] Name has no usable address)"))
 sidecar-1 exited with code 1
 ```
+
+** From the above output, it is clearly evident that the sidecar is handling all of the below requirements:
+- Poll `/health` on `app:4567` every 10 seconds
+- Track metrics: `requestLatency`, `dbLatency`, `cacheLatency`
+- Print average, min, max every 60 seconds
+- Exit non-zero if `/health` returns non-200

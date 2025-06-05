@@ -96,6 +96,9 @@ The nginx container must access the app via the internal Docker network by servi
 ### Result
 
 ```bash
+docker-compose down
+docker-compose up --build
+
 curl localhost/sres
 {"sres":["bob","linda","tina","gene","louise"]}
 ```
